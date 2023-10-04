@@ -8,12 +8,10 @@
 - [Patterns and Flags](#Patterns-and-Flags)
 
 
-##File Object
+## File-Object
 File and FileReader 
 
 File and FileReader are classes commonly used in programming for reading files in various programming languages. They are part of the standard libraries in many languages, and they provide a way to interact with files on a computer's file system. 
-
- 
 
 File: 
 
@@ -150,3 +148,101 @@ Sending an Image
 To send an image using a POST request in JavaScript, you'll need to use the FormData object along with the fetch() function. 
 
 Please note that handling file uploads involves considerations for security and file size limitations. You should validate and sanitize user input, set appropriate server-side file size limits, and handle file storage securely. 
+
+## FormData
+ 
+
+FormData is a JavaScript object that allows you to easily construct a set of key/value pairs representing form fields and their values. It's particularly useful when you want to send data via an HTTP request, such as using the fetch API or in an XMLHttpRequest. 
+
+The constructor is: 
+
+let formData = new FormData([form]); 
+
+FormData is an object to store and send form data. 
+
+
+Sending a simple form 
+
+
+FormData Methods 
+
+formData.append(name, value) – add a form field with the given name and value, 
+
+formData.append(name, blob, fileName) – add a field as if it were <input type="file">, the third argument fileName sets file name (not form field name), as it it were a name of the file in user’s filesystem, 
+
+formData.delete(name) – remove the field with the given name, 
+
+formData.get(name) – get the value of the field with the given name, 
+
+formData.has(name) – if there exists a field with the given name, returns true, otherwise false 
+
+formData.set(name, value), 
+
+formData.set(name, blob, fileName). 
+
+
+
+Sending a form with a file 
+
+Sending a form with a file involves a few extra steps compared to sending a form with only text input fields. You'll need to use FormData to collect the form data, and then use the fetch API to send it to a server. 
+
+
+
+Sending a form with Blob data 
+
+ormData objects are used to capture HTML form and submit it using fetch or another network method. 
+
+We can either create new FormData(form) from an HTML form, or create an empty object, and then append fields with methods: 
+
+formData.append(name, value) 
+
+formData.append(name, blob, fileName) 
+
+formData.set(name, value) 
+
+formData.set(name, blob, fileName) 
+
+
+Two peculiarities here: 
+
+The set method removes fields with the same name, append doesn’t. 
+
+To send a file, 3-argument syntax is needed, the last argument is a file name, that normally is taken from user filesystem for <input type="file">. 
+
+Other methods are: 
+
+formData.delete(name) 
+
+formData.get(name) 
+
+formData.has(name) 
+
+
+
+Fetch: Abort 
+
+Step 1: create a controller: 
+
+let controller = new AbortController(); 
+
+A controller is an extremely simple object. It has a single method abort(), and a single property signal. When abort() is called, the abortevent triggers on controller.signal: 
+
+Step 2: pass the signal property to fetch option: 
+
+let controller = new AbortController(); 
+
+fetch(url, { 
+
+  signal: controller.signal 
+
+}); 
+
+Now fetch listens to the signal.  
+
+Step 3: to abort, call controller.abort(): 
+
+controller.abort(); 
+
+We’re done: fetch gets the event from signal and aborts the request. 
+
+AbortController is scalable, it allows to cancel multiple fetches at once. 
