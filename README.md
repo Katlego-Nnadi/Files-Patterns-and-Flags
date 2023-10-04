@@ -246,3 +246,254 @@ controller.abort();
 We’re done: fetch gets the event from signal and aborts the request. 
 
 AbortController is scalable, it allows to cancel multiple fetches at once. 
+
+
+
+## Fetch: Cross-Origin Requests 
+
+Cross-origin requests, also known as CORS (Cross-Origin Resource Sharing), refer to web page requests made from one domain (origin) to another domain. By default, web browsers enforce a security policy known as the same-origin policy, which restricts web pages from making requests to a different domain than the one the page came from. 
+
+CORS is a security feature implemented by web browsers to control which web pages are allowed to access resources (like data, scripts, or fonts) on a web page from a different domain. It is crucial for web security, as it prevents malicious scripts from making unauthorized requests on behalf of a user. 
+
+To allow cross-origin requests, the server hosting the resource can include specific HTTP headers in its response to indicate which domains are permitted to access the resource. These headers include: 
+
+Access-Control-Allow-Origin: This header specifies which domains are allowed to access the resource. For example, if a server sets this header to Access-Control-Allow-Origin: example.com, then only pages from example.com are allowed to make requests. 
+
+Access-Control-Allow-Methods: This header indicates which HTTP methods (GET, POST, PUT, DELETE, etc.) are allowed when making a cross-origin request. 
+
+Access-Control-Allow-Headers: This header specifies which HTTP headers are allowed in a request. 
+
+Access-Control-Allow-Credentials: This header indicates whether credentials (like cookies or HTTP authentication) can be included in a cross-origin request. 
+
+Access-Control-Max-Age: This header specifies how long the response to a preflight request (an initial request made by the browser to check if the full request is allowed) can be cached. 
+
+Access-Control-Expose-Headers: This header allows servers to specify which headers can be exposed to the response. 
+
+CORS is an essential security feature, as it prevents unauthorized access to sensitive resources. However, it can sometimes be a challenge for web developers when they need to make requests from different domains. They might need to configure their server to include the necessary CORS headers or use techniques like JSONP or server proxies to work around the restrictions. 
+
+ 
+
+ 
+
+Using Forms 
+
+One way to communicate with another server was to submit a <form> there. People submitted it into <iframe>, just to stay on the current page, like this:  
+
+  
+
+So, it was possible to make a GET/POST request to another site, even without networking methods, as forms can send data anywhere. But as it’s forbidden to access the content of an <iframe> from another site, it wasn’t possible to read the response.  
+
+To be precise, there were actually tricks for that, they required special scripts at both the iframe and the page. So the communication with the iframe was technically possible. Right now there’s no point to go into details, let these dinosaurs rest in peace.  
+
+ 
+
+Simple Requests 
+
+ 
+
+A simple request is a request that satisfies two conditions: 
+
+Simple method: GET, POST or HEAD 
+
+Simple headers – the only allowed custom headers are: 
+
+Accept, 
+Accept-Language, 
+Content-Language, 
+Content-Type with the value application/x-www-form-urlencoded, multipart/form-data or text/plain. 
+
+ 
+
+CORS for Simple Requests 
+
+CORS (Cross-Origin Resource Sharing) is a security feature implemented by web browsers to control which web pages are allowed to access resources (like data, scripts, or fonts) on a web page from a different domain. There are two types of requests in CORS: Simple Requests and Preflighted Requests. 
+
+Let's focus on Simple Requests first: 
+
+Simple Requests: 
+
+A request is considered a "simple request" if it meets the following conditions: 
+
+It uses only the following methods: 
+
+GET 
+
+HEAD 
+
+POST 
+
+The only allowed request headers are: 
+
+Accept 
+
+Accept-Language 
+
+Content-Language 
+
+Content-Type (with a value of application/x-www-form-urlencoded, multipart/form-data, or text/plain) 
+
+The only allowed Content-Type in the request entity body is: 
+
+text/plain 
+
+multipart/form-data 
+
+application/x-www-form-urlencoded 
+
+No event listeners are registered on any XMLHttpRequestUpload object used in the request (for example, progress event listeners). 
+
+If a request meets all these criteria, it's considered a Simple Request. 
+
+CORS Handling for Simple Requests: 
+
+For Simple Requests, the browser adds an Origin header to the request indicating the origin of the page making the request. 
+
+If the server's response includes the appropriate CORS headers, and the origin is allowed, the browser allows the request to go through. The relevant headers include: 
+
+Access-Control-Allow-Origin: This header specifies which domains are allowed to access the resource. For a Simple Request, it can be set to * (allowing any origin) or a specific domain. 
+
+Access-Control-Allow-Methods: This header indicates which HTTP methods (GET, POST, PUT, DELETE, etc.) are allowed when making a cross-origin request. 
+
+Access-Control-Allow-Headers: This header specifies which HTTP headers are allowed in a request. 
+
+Access-Control-Allow-Credentials: This header indicates whether credentials (like cookies or HTTP authentication) can be included in a cross-origin request. 
+
+Access-Control-Max-Age: This header specifies how long the response to a preflight request (an initial request made by the browser to check if the full request is allowed) can be cached. 
+
+Simple Requests don't require a preflight request (OPTIONS request) to be sent by the browser before the actual request. The browser directly sends the request, and the server responds with the appropriate CORS headers. 
+
+ 
+
+Non-simple Requests 
+
+There are a few things that can make a request non-simple:  
+
+Different Actions: If the web page is trying to do something more complex, like changing information or adding new things, it's considered a non-simple request.  
+
+Custom Settings: If the request is using special settings or asking for special information, it's also considered non-simple.  
+
+Checking Permission: When a non-simple request happens, the browser sometimes checks with the other website to make sure it's allowed to do the special thing. This is like asking for permission before doing something important. 
+
+ 
+Credentials 
+
+In the context of web development and CORS (Cross-Origin Resource Sharing), "credentials" refer to sensitive information that can be used to authenticate a user or establish a session. This typically includes cookies, HTTP authentication, and client-side certificates. 
+
+When making cross-origin requests, browsers have a security feature that restricts whether or not credentials (like cookies) can be sent along with the request. This is important for security because it prevents unauthorized sites from making requests on behalf of a user. 
+
+There are two levels of credentials that can be sent with a request: 
+
+Same-origin requests: 
+
+For requests made to the same domain (origin), cookies and other credentials are sent by default, assuming the server has set appropriate Set-Cookie headers. 
+
+In this case, the browser automatically includes cookies associated with the domain. 
+
+Cross-origin requests: 
+
+For requests made to a different domain, credentials are not sent by default. This is a security measure to prevent unauthorized access. 
+
+If you want to send credentials with a cross-origin request, you need to set the withCredentials property of the XMLHttpRequest object (or use the credentials option in Fetch API) to true. 
+
+Additionally, the server must include the Access-Control-Allow-Credentials header in its response with a value of true. 
+
+
+## Patterns-and-Flags
+
+A regular expression (also “regexp”, or just “reg”) consists of a pattern and optional flags. 
+
+patterns and flags typically refer to regular expressions (regex) and their associated flags. Regular expressions are a powerful tool for matching patterns in strings. 
+
+
+Usage 
+
+Validation: Email Addresses: Regex can be used to validate email addresses. 
+
+Search and Replace: You can use regex for pattern-based search and replace operations. 
+
+Parsing: Regex can be used to extract specific information from strings. 
+
+Password Strength: You can use regex to enforce password strength requirements. 
+
+Data Extraction: Parsing data from structured text, like logs or CSV files. 
+
+URL Routing: In web applications, regex can be used for handling route matching. 
+
+Data Cleaning: Removing unwanted characters or formatting from text. 
+
+
+Flags 
+
+Regular expressions may have flags that affect the search. 
+
+There are only 6 of them in JavaScript: 
+
+I (Case-Insensitive) With this flag the search is case-insensitive: no difference between A and a (see the example below). 
+
+G (Global) With this flag the search looks for all matches, without it – only the first one  
+
+M (Multi-line) Multiline mode (covered in the chapter Multiline mode, flag "m"). 
+
+S (DotAll) “Dotall” mode, allows . to match newlines (covered in the chapter Character classes). 
+
+U (Unicode) Enables full unicode support. The flag enables correct processing of surrogate pairs. More about that in the chapter  Unicode: flag "u". 
+
+Y Sticky mode (covered in the chapter Sticky flag "y", searching at position) 
+
+
+Character classes 
+
+In regular expressions, character classes allow you to match a set of characters rather than just a single character. They are denoted by square brackets [ ]. 
+
+When the pattern contains \b, it tests that the position in string is a word boundary, that is one of three variants: 
+
+Immediately before is \w, and immediately after – not \w, or vise versa. 
+
+At string start, and the first string character is \w. 
+
+At string end, and the last string character is \w. 
+
+Inverse Classes 
+
+An inverse class, also known as a negated character class, allows you to match any character except those listed within the class. In regular expressions, you can create an inverse class by using the caret (^) symbol as the first character inside the square brackets ([]). 
+
+For example: 
+
+[^abc] matches any character that is not a, b, or c 
+
+The “reverse” means that it matches all other characters, for instance: 
+
+\D 
+
+Non-digit: any character except \d, for instance a letter. 
+
+\S 
+
+Non-space: any character except \s, for instance a letter. 
+
+\W 
+
+Non-wordly character: anything but \w. 
+
+\B 
+
+Non-boundary: a test reverse to \b. 
+
+
+Escaping, Special characters 
+
+In regular expressions, certain characters have special meanings and are used to perform specific operations. To match these characters literally, you need to "escape" them using a backslash (\). 
+
+(Dot) In regex, . matches any single character except for a newline character. To match a literal dot, you need to escape it. 
+
+(Asterisk): In regex, * matches zero or more occurrences of the preceding character or group. To match a literal asterisk, you need to escape it. 
+
++ (Plus): In regex, + matches one or more occurrences of the preceding character or group. To match a literal plus sign, you need to escape it. 
+
+? (Question Mark): In regex, ? matches zero or one occurrence of the preceding character or group. To match a literal question mark, you need to escape it. 
+
+[] (Square Brackets): Square brackets are used to define character classes in regex. To match a literal square bracket, you need to escape them. 
+
+\ (Backslash): The backslash itself is a special character in regex. To match a literal backslash, you need to escape it. 
+
+ 
