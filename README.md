@@ -4,7 +4,7 @@
 
 - [File Objects ](#File-Objects )
 - [FormData](#FormData)
-- [Fetch: Cross-Origin Requests ](#Fetch-Cross-Origin-Requests )
+- [Fetch:Cross-Origin Requests ](#Fetch-Cross-Origin-Requests )
 - [Patterns and Flags](#Patterns-and-Flags)
 
 
