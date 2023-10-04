@@ -8,7 +8,7 @@
 - [Patterns and Flags](#Patterns-and-Flags)
 
 
-## File-Object
+## File-Objects
 File and FileReader 
 
 File and FileReader are classes commonly used in programming for reading files in various programming languages. They are part of the standard libraries in many languages, and they provide a way to interact with files on a computer's file system. 
@@ -99,9 +99,6 @@ The fetch() function in JavaScript is a modern way to make network requests, typ
 
 Keep in mind that fetch() works in web browsers and in environments where there's a network connection available. If you're using JavaScript in a server-side environment (like Node.js), you'd use a different module or library to make network requests. 
 
- 
-
- 
 
 Post Requests 
 
@@ -139,9 +136,6 @@ Sending Data to Payment Gateways: When you make an online purchase, the data abo
 
 Submitting Comments or Reviews: On websites with user-generated content, like forums or product review sites, when you submit a comment or review, that data is sent to the server via a POST request. 
 
- 
-
- 
 
 Sending an Image 
 
@@ -187,7 +181,6 @@ Sending a form with a file
 Sending a form with a file involves a few extra steps compared to sending a form with only text input fields. You'll need to use FormData to collect the form data, and then use the fetch API to send it to a server. 
 
 
-
 Sending a form with Blob data 
 
 ormData objects are used to capture HTML form and submit it using fetch or another network method. 
@@ -216,8 +209,6 @@ formData.delete(name)
 formData.get(name) 
 
 formData.has(name) 
-
-
 
 Fetch: Abort 
 
@@ -249,7 +240,7 @@ AbortController is scalable, it allows to cancel multiple fetches at once.
 
 
 
-## Fetch: Cross-Origin Requests 
+## Fetch:-Cross-Origin-Requests
 
 Cross-origin requests, also known as CORS (Cross-Origin Resource Sharing), refer to web page requests made from one domain (origin) to another domain. By default, web browsers enforce a security policy known as the same-origin policy, which restricts web pages from making requests to a different domain than the one the page came from. 
 
@@ -285,11 +276,7 @@ So, it was possible to make a GET/POST request to another site, even without net
 
 To be precise, there were actually tricks for that, they required special scripts at both the iframe and the page. So the communication with the iframe was technically possible. Right now there’s no point to go into details, let these dinosaurs rest in peace.  
 
- 
-
 Simple Requests 
-
- 
 
 A simple request is a request that satisfies two conditions: 
 
@@ -301,8 +288,6 @@ Accept,
 Accept-Language, 
 Content-Language, 
 Content-Type with the value application/x-www-form-urlencoded, multipart/form-data or text/plain. 
-
- 
 
 CORS for Simple Requests 
 
