@@ -4,7 +4,7 @@
 
 - [File Objects ](#File-Objects )
 - [FormData](#FormData)
-- [Fetch: Cross-Origin Requests ](#Fetch:-Cross-Origin-Requests )
+- [Fetch: Cross-Origin Requests ](#Fetch-Cross-Origin-Requests )
 - [Patterns and Flags](#Patterns-and-Flags)
 
 
@@ -240,7 +240,7 @@ AbortController is scalable, it allows to cancel multiple fetches at once.
 
 
 
-## Fetch:-Cross-Origin-Requests
+## Fetch-Cross-Origin-Requests
 
 Cross-origin requests, also known as CORS (Cross-Origin Resource Sharing), refer to web page requests made from one domain (origin) to another domain. By default, web browsers enforce a security policy known as the same-origin policy, which restricts web pages from making requests to a different domain than the one the page came from. 
 
